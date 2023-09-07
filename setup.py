@@ -44,12 +44,12 @@ def get_extensions():
     for s in ("Matvec", "la", "evaluate", "transforms", "leg2chebm"):
         ext.append(Extension("shenfun.optimization.cython.{0}".format(s),
                              libraries=['m'],
-                             library_dirs=[fastgl_dir],
-                             include_dirs=[fastgl_dir],
                              sources=[os.path.join(cdir, '{0}.pyx'.format(s))],
                              language="c++"))  # , define_macros=define_macros
     ext.append(Extension("shenfun.legendre.fastgl.fastgl_wrap",
                          libraries=['m'],
+                         library_dirs=[fastgl_dir],
+                         include_dirs=[fastgl_dir],
                          language='c++',
                          sources=[os.path.join(cwd, "shenfun", "legendre", "fastgl", "fastgl_wrap.pyx")]))
     [e.extra_link_args.extend(["-std=c++11"]) for e in ext]

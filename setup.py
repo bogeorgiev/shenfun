@@ -9,6 +9,8 @@ from numpy import get_include
 
 cwd = os.path.abspath(os.path.dirname(__file__))
 cdir = os.path.join(cwd, "shenfun", "optimization", "cython")
+fastgl_dir = os.path.join(cwd, "shenfun", "legendre", "fastgl")
+
 
 def has_flag(compiler, flagname):
     """Return a boolean indicating whether a flag name is supported on
@@ -42,6 +44,8 @@ def get_extensions():
     for s in ("Matvec", "la", "evaluate", "transforms", "leg2chebm"):
         ext.append(Extension("shenfun.optimization.cython.{0}".format(s),
                              libraries=['m'],
+                             library_dirs=[fastgl_dir],
+                             include_dirs=[fastgl_dir],
                              sources=[os.path.join(cdir, '{0}.pyx'.format(s))],
                              language="c++"))  # , define_macros=define_macros
     ext.append(Extension("shenfun.legendre.fastgl.fastgl_wrap",
